@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    namespace 'cn.somees.myapplication4'
+    compileSdk 34
     defaultConfig {
         applicationId "cn.somees.myapplication4"
-        minSdkVersion 14
-        targetSdkVersion 22
+        minSdk 14
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -21,6 +22,7 @@ android {
                 optimizeCode false
                 proguardFile 'proguard-rules.pro'
             }
+    
         }
     }
 }
@@ -29,5 +31,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':MyFixed')
     implementation project(':MyFund')
-    compile 'com.xiaoniu.corelib:xnrouter:1.0.0'
+    implementation 'com.xiaoniu.corelib:xnrouter:1.0.0'
 }
+
+
+
+

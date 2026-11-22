@@ -1,26 +1,27 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
+    namespace 'com.xiaoniu.finance.myfund'
+    compileSdk 34
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 22
+        minSdk 14
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName: "fund", libPackageName: project.readPackage()]
+                arguments = [moduleName: "fund", libPackageName: 'com.xiaoniu.finance.myfund']
             }
         }
 
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     buildTypes {
@@ -37,13 +38,6 @@ android {
 
 }
 
-import com.android.builder.core.DefaultManifestParser
-
-def readPackage() {
-    def manifestParser = new DefaultManifestParser(android.sourceSets.main.manifest.srcFile)
-    return manifestParser.getPackage()
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -52,10 +46,11 @@ dependencies {
 //    implementation project(':XNRouter')
 
 
-    compile 'com.xiaoniu.corelib:xnannotation:1.0.0'
+    implementation 'com.xiaoniu.corelib:xnannotation:1.0.0'
     annotationProcessor 'com.xiaoniu.corelib:xnprocessor:1.0.0'
-    compile 'com.xiaoniu.corelib:xnrouter:1.0.0'
+    implementation 'com.xiaoniu.corelib:xnrouter:1.0.0'
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:appcompat-v7:23.4.0'
 }
+

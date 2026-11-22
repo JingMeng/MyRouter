@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.TimeUtils;
@@ -17,9 +17,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 路由请求
- * 仿照Message的对象池实现路由请求的对象复用
- * Created by wenzhonghu on 2018/5/10.
+ * 璺敱璇锋眰
+ * 浠跨収Message鐨勫璞℃睜瀹炵幇璺敱璇锋眰鐨勫璞″鐢? * Created by wenzhonghu on 2018/5/10.
  */
 public class XnRouterRequest {
 
@@ -215,7 +214,7 @@ public class XnRouterRequest {
     }
 
     /**
-     * 请求构造链
+     * 璇锋眰鏋勯€犻摼
      */
     public static class Builder {
         /**
@@ -264,9 +263,8 @@ public class XnRouterRequest {
         }
 
         /**
-         * 路由的key
-         * 用于查找action操作,其中匹配规则根据match来实现
-         *
+         * 璺敱鐨刱ey
+         * 鐢ㄤ簬鏌ユ壘action鎿嶄綔,鍏朵腑鍖归厤瑙勫垯鏍规嵁match鏉ュ疄鐜?         *
          * @param path
          * @return
          */
@@ -276,9 +274,7 @@ public class XnRouterRequest {
         }
 
         /**
-         * 路由路径匹配规则,默认是完整匹配规则
-         * 如果设置false,则匹配到路径的前部分即认为成功匹配
-         *
+         * 璺敱璺緞鍖归厤瑙勫垯,榛樿鏄畬鏁村尮閰嶈鍒?         * 濡傛灉璁剧疆false,鍒欏尮閰嶅埌璺緞鐨勫墠閮ㄥ垎鍗宠涓烘垚鍔熷尮閰?         *
          * @param match
          * @return
          */
@@ -288,8 +284,7 @@ public class XnRouterRequest {
         }
 
         /**
-         * 路由跳转的权限操作
-         *
+         * 璺敱璺宠浆鐨勬潈闄愭搷浣?         *
          * See (@link com.xiaoniu.finance.router.permission.PermissionType) for permission
          *
          * @param permission
@@ -678,3 +673,4 @@ public class XnRouterRequest {
     }
 
 }
+

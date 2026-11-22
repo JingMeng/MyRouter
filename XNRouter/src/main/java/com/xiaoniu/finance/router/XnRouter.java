@@ -2,7 +2,7 @@ package com.xiaoniu.finance.router;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,8 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.xiaoniu.finance.router.result.XnResultCode.CODE_NOT_FOUND;
 
 /**
- * XnRouter中转器
- * @author wenzhonghu
+ * XnRouter涓浆鍣? * @author wenzhonghu
  */
 public class XnRouter {
     private static final String TAG = "XnRouter";
@@ -38,8 +37,7 @@ public class XnRouter {
     }
 
     /**
-     * 单例模式,多个调用下只有一个单例
-     *
+     * 鍗曚緥妯″紡,澶氫釜璋冪敤涓嬪彧鏈変竴涓崟渚?     *
      * @return
      */
     public static synchronized XnRouter getInstance() {
@@ -54,20 +52,18 @@ public class XnRouter {
     }
 
     /**
-     * 注册模块
+     * 娉ㄥ唽妯″潡
      *
-     * @param moduleName path路径
-     * @param module path对应的业务模块
-     */
+     * @param moduleName path璺緞
+     * @param module path瀵瑰簲鐨勪笟鍔℃ā鍧?     */
     public void registerModule(String moduleName, XnRouteMeta module) {
         mTracks.put(moduleName, module);
     }
 
     /**
-     * 路由跳转
+     * 璺敱璺宠浆
      *
-     * @param context 上下文
-     * @param builder 请求数据
+     * @param context 涓婁笅鏂?     * @param builder 璇锋眰鏁版嵁
      * @return
      */
     public XnRouterResponse from(Context context, @NonNull XnRouterRequest.Builder builder) {
@@ -75,16 +71,15 @@ public class XnRouter {
     }
 
     /**
-     * 路由跳转
+     * 璺敱璺宠浆
      *
-     * @param context 上下文
-     * @param routerRequest 请求数据
+     * @param context 涓婁笅鏂?     * @param routerRequest 璇锋眰鏁版嵁
      * @return
      */
     private XnRouterResponse from(Context context, @NonNull XnRouterRequest routerRequest) {
         //long starttime = System.currentTimeMillis();
         /**
-         * 1/查询路由以及路由规则匹配体系执行
+         * 1/鏌ヨ璺敱浠ュ強璺敱瑙勫垯鍖归厤浣撶郴鎵ц
          */
         XnAbstractTrack targetTrace = findAndRouterRule(context, routerRequest);
         if (targetTrace == null || targetTrace instanceof XnRouterException) {
@@ -100,29 +95,29 @@ public class XnRouter {
         }
 
         /**
-         * 2/组装参数
+         * 2/缁勮鍙傛暟
          */
         Object attachment = routerRequest.getAndClearObject();
         Bundle data = (Bundle) routerRequest.getData().clone();
         logD("find Track start: " + System.currentTimeMillis());
-        /**使用完毕回收到对象池中*/
+        /**浣跨敤瀹屾瘯鍥炴敹鍒板璞℃睜涓?/
         logD("obtain=" + routerRequest.toString());
         routerRequest.recycle();
         logD("recycle=" + routerRequest.toString());
         logD("find Track end: " + System.currentTimeMillis());
         /**
-         * 3/同步调用直接返回结果
+         * 3/鍚屾璋冪敤鐩存帴杩斿洖缁撴灉
          */
         XnRouterResult result = attachment == null ? targetTrace.fire(context, data) : targetTrace.fire(context, data, attachment);
         if (result == null) {
             result = new XnRouterResult.Builder().code(XnResultCode.CODE_INVALID).msg("").object(null).build();
         }
         /**
-         * 4/拦截结果
+         * 4/鎷︽埅缁撴灉
          */
         agentResult(result);
         /**
-         * 5/返回调用响应结果
+         * 5/杩斿洖璋冪敤鍝嶅簲缁撴灉
          */
         XnRouterResponse routerResponse = XnRouterResponse.build(result.getCode(), result.getMsg(), result.getObject());
         return routerResponse;
@@ -139,14 +134,13 @@ public class XnRouter {
     }
 
     /**
-     * 查询目标action
+     * 鏌ヨ鐩爣action
      *
-     * @param context 上下文
-     * @param routerRequest 请求数据
+     * @param context 涓婁笅鏂?     * @param routerRequest 璇锋眰鏁版嵁
      * @return
      */
     private XnAbstractTrack findAndRouterRule(Context context, XnRouterRequest routerRequest) {
-        /**匹配查询XnRouteMeta*/
+        /**鍖归厤鏌ヨXnRouteMeta*/
         XnRouteMeta targetRouteMeta = findRouteMeta(routerRequest);
         if(targetRouteMeta == null){
             return  null;
@@ -157,8 +151,8 @@ public class XnRouter {
     }
 
     /**
-     *  查找路由
-     * @param routerRequest 请求数据
+     *  鏌ユ壘璺敱
+     * @param routerRequest 璇锋眰鏁版嵁
      * @return
      */
     private XnRouteMeta findRouteMeta(XnRouterRequest routerRequest) {
@@ -174,8 +168,8 @@ public class XnRouter {
     }
 
     /**
-     * 匹配path
-     * @param routerRequest 请求
+     * 鍖归厤path
+     * @param routerRequest 璇锋眰
      * @return
      */
     private String findMatchKey(XnRouterRequest routerRequest) {
@@ -197,10 +191,9 @@ public class XnRouter {
     };
 
     /**
-     * 添加权限不足情况下的回调
+     * 娣诲姞鏉冮檺涓嶈冻鎯呭喌涓嬬殑鍥炶皟
      *
-     * @param listener 监听器
-     * @return
+     * @param listener 鐩戝惉鍣?     * @return
      */
     public XnRouter setPermissionDeniedListener(PermissionDeniedListener listener) {
         mDeniedListener = listener;
@@ -208,7 +201,7 @@ public class XnRouter {
     }
 
     /**
-     * 获取权限不足情况下的回调
+     * 鑾峰彇鏉冮檺涓嶈冻鎯呭喌涓嬬殑鍥炶皟
      *
      * @return
      */
@@ -220,3 +213,4 @@ public class XnRouter {
         void onPermissionDenied(final Context context);
     }
 }
+

@@ -1,7 +1,7 @@
 package com.xiaoniu.finance.router.rule;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.xiaoniu.finance.router.core.XnAbstractTrack;
 import com.xiaoniu.finance.router.core.XnRouterRule;
@@ -14,8 +14,7 @@ public class RuleManager {
     private volatile static RuleManager sInstance = null;
 
     /**
-     * 单例模式,多个调用下只有一个单例
-     *
+     * 鍗曚緥妯″紡,澶氫釜璋冪敤涓嬪彧鏈変竴涓崟渚?     *
      * @return
      */
     public static synchronized RuleManager getInstance() {
@@ -43,3 +42,4 @@ public class RuleManager {
         return ruleContext;
     }
 }
+

@@ -1,18 +1,19 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+
 
 android {
-    compileSdkVersion 23
+    namespace 'com.xiaoniu.finance.router'
+    compileSdk 34
 
 
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 22
+        minSdk 14
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -24,6 +25,7 @@ android {
                 optimizeCode false
                 proguardFile 'proguard-rules.pro'
             }
+    
         }
     }
 
@@ -32,18 +34,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.xiaoniu.corelib:xnannotation:1.0.0'
-    implementation 'com.android.support:appcompat-v7:23.4.0'
+    implementation project(':XNAnnotation')
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-}
-
-publish {
-    userOrg = 'wenzhonghu'
-    groupId = "${GROUP_ID}"
-    artifactId = "${ROUTER_ARTIFACT_ID}"
-    publishVersion = "${ROUTER_VERSION}"
-    desc = 'This is a MyRouter library '
-    website = 'https://github.com/wenzhonghu/MyRouter'
 }
